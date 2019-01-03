@@ -1,24 +1,16 @@
 #include <iostream>
-#include <cstring>
 using namespace std;
 
-int tile(int N);
-int cache[1001];
 int main(void) {
 	int N;
+	int tile[1001];
 	cin >> N;
-	memset(cache, -1, sizeof(cache));
-	cout <<tile(N);
-}
-
-int tile(int N) {
-	//if (N == 0) {
-	//	return 1;
-	//}
-	if (N == 1) {
-		return 1;
+	tile[0] = 1;
+	tile[1] = 1;
+	for (int i = 2; i <= N; i++) {
+		tile[i] = (tile[i - 1] + tile[i - 2])%10007;
 	}
-	int& ret = cache[N];
-	if (ret != -1) return ret;
-	return (tile(N - 1) + tile(N - 2)) % 10007;
+	cout <<tile[N] % 10007;
+
+	return 0;
 }

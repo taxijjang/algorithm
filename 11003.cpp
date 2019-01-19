@@ -5,8 +5,7 @@ using namespace std;
 typedef long long int ll;
 
 ll arr[MAX];
-ll temp[MAX];
-ll temp2[MAX];
+
 int main(void) {
 	int N, L;
 	scanf("%d %d", &N, &L);
@@ -15,18 +14,32 @@ int main(void) {
 		scanf("%lld", &arr[i]);
 	}
 
-	fill_n(temp,5000001, 1000000001);
-	fill_n(temp2, 5000001, 1000000001);
 	int head = 1, tail = 1;
-	int t_index = 0;
-	while (tail <= N) {
-		temp[(t_index % L) + 1] = arr[(t_index++) + 1];
-		copy(temp, (temp + L) + 1, temp2);
-		sort(temp + 1, temp + tail + 1);
-		printf("%lld ", temp[1]);
-		copy(temp2, (temp2 + L) + 1, temp);
-		tail++;
-	
+
+	ll tmp;
+	while (head <= N - L + 1) {
+		tmp = 1000000001;
+		if (tail < L) {
+			for (int i = 1; i < tail + L; i++) {
+				if (tmp > arr[i]) {
+					tmp = arr[i];
+
+				}
+			}
+			printf("%d ", tmp);
+			tail++;
+		}
+		else {
+			for (int i = head; i <= tail; i++) {
+				if (tmp > arr[i]) {
+					tmp = arr[i];
+
+				}
+			}
+			printf("%d ", tmp);
+			tail++;
+			head++;
+		}
 	}
 	return 0;
 }

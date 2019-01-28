@@ -1,22 +1,23 @@
 #include <iostream>
 
-using namespace std;
+int dp[12];
 
 int main(void) {
 	int N;
-	int TT;
-	int T[11];
-	T[0] = 1;
-	T[1] = 1;
-	T[2] = 2;
-	cin >> TT;
-	for (int tt = 0; tt < TT; tt++) {
-		cin >> N;
-		for (int n = 3; n <= N; n++) {
-			T[n] = T[n - 1] + T[n - 2] + T[n - 3];
-		}
+	scanf("%d", &N);
 
-		cout << T[N];
+	dp[1] = 1;
+	dp[2] = 2;
+	dp[3] = 4;
+	for (int i = 4; i <= 11; i++) {
+		dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
 	}
+
+	for (int i = 0; i < N; i++) {
+		int num;
+		scanf("%d", &num);
+		printf("%d\n", dp[num]);
+	}
+
 	return 0;
 }

@@ -1,16 +1,20 @@
 #include <iostream>
-using namespace std;
+#define mod 10007
+int dp[1001];
 
 int main(void) {
 	int N;
-	int tile[1001];
-	cin >> N;
-	tile[0] = 1;
-	tile[1] = 1;
-	for (int i = 2; i <= N; i++) {
-		tile[i] = (tile[i - 1] + tile[i - 2])%10007;
+	scanf("%d", &N);
+
+	dp[1] = 1;
+	dp[2] = 2;
+	dp[3] = 3;
+
+	for (int i = 4; i <= N; i++) {
+		dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
 	}
-	cout <<tile[N] % 10007;
+
+	printf("%d", (dp[N]) % mod);
 
 	return 0;
 }

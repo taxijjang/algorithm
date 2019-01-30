@@ -1,36 +1,34 @@
-#include<iostream>
+#include <iostream>
 
-using namespace std;
+int arr[1011];
+int dp[1011];
 
-int nums[1001];
-int dp[1001];
-
-int main() {
-
+int max(int a, int b) {
+	return a > b ? a : b;
+}
+int main(void) {
 	int N;
-
 	scanf("%d", &N);
 
-	for (int i = 0; i<N; i++) {
-		scanf("%d", &nums[i]);
+	for (int i = 1; i <= N; i++) {
+		scanf("%d", &arr[i]);
 	}
 
-	for (int i = 0; i<N; i++) {
-		dp[i] = 1;
-		for (int j = i - 1; j >= 0; j--) {
-			if (nums[j] < nums[i] && dp[i] < dp[j] + 1) {
-				dp[i] = dp[j] + 1;
+
+	int m = 0;
+	for (int i = 1; i <= N; i++) {
+		int n = 0;
+		for (int j = 1; j < i; j++) {
+			if (arr[i] > arr[j]) {
+				if (n < dp[j])
+					n = dp[j];
 			}
 		}
+		dp[i] = n + 1;
+		if (m < dp[i]) m = dp[i];
 	}
 
-	int result = dp[0];
+	printf("%d", m);
 
-	for (int i = 1; i<N; i++) {
-		if (result < dp[i])
-			result = dp[i];
-	}
-
-	printf("%d\n", result);
 	return 0;
 }

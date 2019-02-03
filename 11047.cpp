@@ -1,28 +1,26 @@
 #include <iostream>
-#include <deque>
 
-using namespace std;
+int price[11];
 
-int arr[11];
 int main(void) {
 	int N, K;
 	scanf("%d %d", &N, &K);
 
-	for (int i = 0; i < N; i++) {
-		scanf("%d", &arr[i]);
+	for (int n = 1; n <= N; n++) {
+		scanf("%d", &price[n]);
 	}
 
-	int index = N - 1;
 	int cnt = 0;
-	while (1) {
-		if (arr[index] <= K) {
-			K = K - arr[index];
+
+	for (int i = N; i > 0; i--) {
+		while (K / price[i] != 0) {
 			cnt++;
+			K = K - price[i];
 		}
-		if (arr[index] > K) index--;
-		if (K <= 0) break;
+		if (K == 0) break;
 	}
 
 	printf("%d", cnt);
 
+	return 0;
 }

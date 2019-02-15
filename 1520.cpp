@@ -1,46 +1,45 @@
 #include <iostream>
-#include <cstring>
-using namespace std;
 
-int work(int y, int x);
-
-int mountin[501][501];
-int cache[501][501];
-int X[4] = { 0,0,-1,1 };
-int Y[4] = { 1,-1.0,0 };
-int N, M;
-int high = 10001;
+int arr[501][501];
+bool visited[501][501];
 int cnt = 0;
-int main(void) {
-	cin >> N >> M;
-	memset(cache, -1, sizeof(cache));
-	for (int n = 0; n < N; n++) {
-		for (int m = 0; m < M; m++) {
-			cin >> mountin[n][m];
-		}
-	}
+int dp[501][501];
 
-	cout << work(0, 0);
-}
+int x_l[4] = { 1,0,-1,0 };
+int y_l[4] = { 0,1,0,-1 };
+int N, M;
 
-int work(int y, int x) {
-	if (cache[y][x] != -1) {
-		return cache[y][x];
-	}
-	if (y >= N || x >= M || y < 0 || x < 0) {
-		return 0;
-	}
-	if (y == N - 1 && x == M - 1) {
-		cnt++;
+int dfs(int x, int y) {
+	if (x == N && y == M) {
 		return 1;
 	}
+	if (x < 1 || y<1 || x > N || y  > M)
+		return 0;
+	if (dp[x][y] != -1) {
+		return dp[x][y];
+	}
 
-	cache[y][x] = 0;
+	dp[x][y] = 0;
 	for (int i = 0; i < 4; i++) {
-		if (mountin[Y[i] + y][X[i] + y] > mountin[y][x]) {
-			cache[y][x] += work(Y[i] + y, X[i] + x);
+		
+		if (arr[x + x_l[i]][y + y_l[i]] < arr[x][y]) {
+			dp[x][y]+=dfs(x + x_l[i], y + y_l[i]);
 		}
 	}
-	return cache[y][x];
+	return dp[x][y];
+}
+int main(void) {
+	
+	scanf("%d %d", &N, &M);
 
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= M; j++) {
+			scanf("%d", &arr[i][j]);
+		}
+	}
+
+	memset(dp, -1, sizeof(dp));
+	printf("%d", dfs(1, 1));
+
+	getchar();
 }

@@ -9,9 +9,7 @@ ll dp[101][101] = { 0 };
 int x_l[2] = { 0,1 };
 int y_l[2] = { 1,0 };
 
-int visited[101][101];
-
-ll dfs(int x,int y,int N) {
+ll dfs(int x, int y, int N) {
 
 	if (x == N && y == N) {
 		return 1;
@@ -20,7 +18,7 @@ ll dfs(int x,int y,int N) {
 		return 0;
 	}
 
-	if (visited[x][y] || dp[x][y]) {
+	if (dp[x][y]) {
 		return dp[x][y];
 	}
 
@@ -28,7 +26,7 @@ ll dfs(int x,int y,int N) {
 		int X = x + (x_l[i] * arr[x][y]);
 		int Y = y + (y_l[i] * arr[x][y]);
 		if (X > N || Y > N) continue;
-		dp[x][y] += dfs(X,Y, N);
+		dp[x][y] += dfs(X, Y, N);
 	}
 
 	return dp[x][y];
@@ -43,7 +41,5 @@ int main(void) {
 		}
 	}
 
-	dfs(1, 1,N);
-
-	printf("%lld", dp[1][1]);
+	printf("%lld", dfs(1, 1, N));
 }

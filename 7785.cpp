@@ -21,9 +21,9 @@ int main(void) {
 		}
 	}
 
-	set<string>::reverse_iterator iter;
-	for (iter = emp.rbegin(); iter != emp.rend(); iter++) {
+	for (auto iter = emp.rbegin(); iter != emp.rend(); iter++) {
 		cout << *iter << "\n";
 	}
-	
+
+	return 0;
 }

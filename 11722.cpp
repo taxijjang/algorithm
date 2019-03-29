@@ -1,33 +1,28 @@
-#include <iostream>
+#include<iostream>
+#include<algorithm>
+#include<vector>
 
-int arr[1010];
-int dp[1010];
+using namespace std;
+const int INF = 2000;
+vector<int> arr;
 
-int max(int a, int b) {
-	return a > b ? a : b;
-}
 int main(void) {
 	int N;
 	scanf("%d", &N);
 
-	for (int i = 1; i <= N; i++) {
-		scanf("%d", &arr[i]);
-	}
-	
-	for (int i = 0; i <= N; i++) {
-		dp[i] = 0;
-	}
-	int nn = 0;
-	int Max = 0;
+	arr.push_back(-INF);
 
 	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j < i; j++) {
-			if (arr[i] < arr[j]) {
-				dp[i] = max(dp[j], dp[i]);
-			}
+		int num;
+		scanf("%d", &num);
+		int m_num = -num;
+		if (arr.back() < m_num) {
+			arr.push_back(m_num);
 		}
-		dp[i] += 1;
-		if (Max < dp[i]) Max = dp[i];
+		else {
+			auto it = lower_bound(arr.begin(), arr.end(), m_num);
+			*it = m_num;
+		}
 	}
-	printf("%d", Max);
+	printf("%d\n", arr.size() - 1);
 }

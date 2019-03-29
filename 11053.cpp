@@ -1,34 +1,26 @@
-#include <iostream>
+#include<iostream>
+#include<algorithm>
+#include<vector>
 
-int arr[1011];
-int dp[1011];
+using namespace std;
 
-int max(int a, int b) {
-	return a > b ? a : b;
-}
+vector<int> arr;
 int main(void) {
 	int N;
-	scanf("%d", &N);
+	scanf("%d",&N);
 
+	arr.push_back(-1);
 	for (int i = 1; i <= N; i++) {
-		scanf("%d", &arr[i]);
-	}
-
-
-	int m = 0;
-	for (int i = 1; i <= N; i++) {
-		int n = 0;
-		for (int j = 1; j < i; j++) {
-			if (arr[i] > arr[j]) {
-				if (n < dp[j])
-					n = dp[j];
-			}
+		int num;
+		scanf("%d", &num);
+		if (arr.back() < num){
+			arr.push_back(num);
 		}
-		dp[i] = n + 1;
-		if (m < dp[i]) m = dp[i];
+		else {
+			auto it = lower_bound(arr.begin(), arr.end(), num);
+			*it = num;
+		}
 	}
 
-	printf("%d", m);
-
-	return 0;
+	printf("%d", arr.size() - 1);
 }

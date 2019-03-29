@@ -7,13 +7,13 @@ using namespace std;
 vector<int> arr;
 int main(void) {
 	int N;
-	scanf("%d", &N);
+	scanf("%d",&N);
 
 	arr.push_back(-1);
 	for (int i = 1; i <= N; i++) {
 		int num;
 		scanf("%d", &num);
-		if (arr.back() < num) {
+		if (arr.back() < num){
 			arr.push_back(num);
 		}
 		else {

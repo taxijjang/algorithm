@@ -31,7 +31,7 @@ int main(void) {
 		}
 		dq.push_back({ num,i });
 
-
+		
 		printf("%d ", dq.front());
 	}
 }

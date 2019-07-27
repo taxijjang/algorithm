@@ -1,45 +1,37 @@
-#include <iostream>
-#include <algorithm>
-#define MAX 5000001
+#include<iostream>
+#include<deque>
+
 using namespace std;
+
 typedef long long int ll;
 
-ll arr[MAX];
+ll start(int i, int L) {
+	if (i - L + 1 < 1)
+		return 1;
+	return i - L + 1;
+}
+typedef struct Data {
+	ll num;
+	ll index;
+}Data;
+
+deque<Data> dq;
 
 int main(void) {
-	int N, L;
-	scanf("%d %d", &N, &L);
-
+	int N, L; scanf("%d %d", &N, &L);
 	for (int i = 1; i <= N; i++) {
-		scanf("%lld", &arr[i]);
-	}
+		int num; scanf("%d", &num);
 
-	int head = 1, tail = 1;
-
-	ll tmp;
-	while (head <= N - L + 1) {
-		tmp = 1000000001;
-		if (tail < L) {
-			for (int i = 1; i < tail + L; i++) {
-				if (tmp > arr[i]) {
-					tmp = arr[i];
-
-				}
-			}
-			printf("%d ", tmp);
-			tail++;
+		ll left = start(i, L);
+		while (!dq.empty() && dq.front().index < left) {
+			dq.pop_front();
 		}
-		else {
-			for (int i = head; i <= tail; i++) {
-				if (tmp > arr[i]) {
-					tmp = arr[i];
-
-				}
-			}
-			printf("%d ", tmp);
-			tail++;
-			head++;
+		while (!dq.empty() && dq.back().num > num) {
+			dq.pop_back();
 		}
+		dq.push_back({ num,i });
+
+
+		printf("%d ", dq.front());
 	}
-	return 0;
 }

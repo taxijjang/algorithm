@@ -1,0 +1,18 @@
+class Solution {
+    int dp[] = new int[100010];
+    public int solution(int[] sticker) {
+        int s_size = sticker.length;
+            for(int i = 0 ; i<s_size;i++){
+                if(i == 0 || i == 1) {
+                    dp[i] = sticker[i];
+                    if(dp[0] >dp[1])
+                        dp[1] = dp[0];
+                    continue;
+                }
+                    dp[i] = Math.max((sticker[i] + dp[i - 2]), dp[i - 1]);
+            }
+
+            System.out.println(dp[s_size-1]);
+            return dp[s_size-1];
+    }
+}

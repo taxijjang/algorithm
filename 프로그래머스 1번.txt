@@ -1,0 +1,19 @@
+import java.util.Arrays;
+
+class Solution{
+    public int solution(int[] goods, int[] boxes){
+        Arrays.sort(goods);
+        Arrays.sort(boxes);
+        int g_size = goods.length;
+        int b_size = boxes.length;
+        int cnt =0;
+        for(int i = 0 ; i <b_size;i++){
+            if(cnt >= g_size)
+                break;
+            if(goods[cnt] <= boxes[i])
+                cnt++;
+        }
+        int answer = cnt;
+        return answer;
+    }
+}

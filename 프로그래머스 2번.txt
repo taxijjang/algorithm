@@ -1,0 +1,68 @@
+import java.util.*;
+class Solution{
+        int dx[] = {-1,-1,1,1};
+        int dy[] = {-1,1,1,-1};
+        int tmp [] = {7,6,5,4,3,2,1,0};
+        int chess[][] = new int [9][9];
+        public int solution(String[] bishops) {
+            int b_size = bishops.length;
+            for (int i = 0; i < b_size; i++) {
+
+                int y = bishops[i].charAt(0) - 'A';
+                int x = (bishops[i].charAt(1) - '1');
+
+                fill_arr( tmp[x],y);
+            }
+
+            return arr_cnt();
+        }
+
+        public int arr_cnt(){
+            int cnt =0;
+            for(int i =0 ; i <8 ; i++){
+                for(int j =0 ; j<8 ; j++){
+                    if(chess[i][j] == 0)
+                        cnt++;
+                }
+            }
+            return cnt;
+        }
+        public void fill_arr(int xx, int yy){
+            //왼쪽 위
+            int x = xx;
+            int y = yy;
+
+        
+            chess[x][y] = 1;
+
+            while(x >= 0 && y >= 0 && x < 8 && y< 8){
+                chess[x][y] = 1;
+                x += dx[0];
+                y += dy[0];
+            }
+            x = xx ;
+            y = yy ;
+            while(x >=0 && y >= 0 && x < 8 && y< 8){
+                chess[x][y] = 1;
+                x += dx[1];
+                y += dy[1];
+            }
+            x = xx;
+            y = yy ;
+            while(x >= 0 && y >= 0 && x < 8 && y< 8){
+                chess[x][y] = 1;
+                x += dx[2];
+                y += dy[2];
+
+            }
+            x = xx;
+            y = yy ;
+            while(x >= 0 && y >= 0 && x < 8 && y< 8){
+                chess[x][y] = 1;
+                x += dx[3];
+                y += dy[3];
+            }
+
+           
+        }
+}

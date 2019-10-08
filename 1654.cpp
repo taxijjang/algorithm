@@ -1,37 +1,34 @@
 #include<iostream>
-typedef long long int ll;
+#define SIZE 10010
 using namespace std;
-
-ll lan[10001];
+typedef long long int ll;
+ll arr[SIZE];
 
 int main(void) {
-	int K, N;
-	scanf("%d %d", &K, &N);
+	ios::sync_with_stdio(false);
+	int K, N; cin >> K >> N;
 
-	ll max = 0;
-	for (int i = 0; i < K; i++) {
-		scanf("%lld", &lan[i]);
-		if (max < lan[i]) max = lan[i];
+	for (int k = 0; k < K; k++) {
+		cin >> arr[k];
 	}
 
-	ll start = 1, end = max, mid,Max=0;
-	while (start <= end) {
-		mid = (start + end) / 2;
-		ll sum = 0;
-
-		for (int i = 0; i < K; i++) {
-			sum += lan[i]/mid;
+	ll left = 1, right = 3e9, mid;
+	ll res = 0, cnt = 0;
+	while (left <= right) {
+		mid = (left + right) / 2;
+		cnt = 0;
+		for (int k = 0; k < K; k++) {
+			cnt += arr[k] / mid;
 		}
-		if (sum < N) {
-			end = mid - 1;
+		if (cnt < N) {
+
+			right = mid - 1;
 		}
 		else {
-			if (Max < mid) {
-				Max = mid;
-			}
-
-			start = mid + 1;
+			if (res < mid)
+				res = mid;
+			left = mid + 1;
 		}
 	}
-	printf("%lld", Max);
+	cout << res;
 }

@@ -1,43 +1,35 @@
-#include <iostream>
-typedef long long int ll;
+#include<iostream>
+#define SIZE 1000100
 
+typedef long long int ll;
 using namespace std;
 
-ll tree[1000001];
+ll arr[SIZE];
 
 int main(void) {
-	int N, M;
-	scanf("%d %d", &N, &M);
+	ios::sync_with_stdio(false);
+	int N, M; cin >> N >> M;
 
-	ll max = 1;
 	for (int i = 0; i < N; i++) {
-		scanf("%lld", &tree[i]);
-		if (max < tree[i]) max = tree[i];
+		cin >> arr[i];
 	}
 
-	ll start = 1, end = max, mid, cut = 0;
+	ll left = 1, right = 3e9, mid, cnt = 0, res = 0;
 
-
-	while (start <= end) {
-		ll sum = 0;
-		mid = (start + end) / 2;
-
+	while (left <= right) {
+		cnt = 0;
+		mid = (left + right) / 2;
 		for (int i = 0; i < N; i++) {
-			if ((tree[i] - mid) >= 0) {
-				sum += tree[i] - mid;
-			}
+			cnt += arr[i] - mid < 0 ? 0 : arr[i] - mid;
 		}
 
-		if (sum >= M) {
-			if (cut < mid) cut = mid;
-			start = mid + 1;
-		}
+		if (cnt < M)
+			right = mid - 1;
 		else {
-			end = mid - 1;
+			if (res < mid)
+				res = mid;
+			left = mid + 1;
 		}
 	}
-
-	printf("%d", cut);
-
-
+	cout << res;
 }

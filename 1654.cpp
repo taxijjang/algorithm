@@ -21,7 +21,7 @@ int main(void) {
 			cnt += arr[k] / mid;
 		}
 		if (cnt < N) {
-
+			
 			right = mid - 1;
 		}
 		else {

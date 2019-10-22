@@ -1,50 +1,55 @@
 #include<iostream>
-#include<set>
+#include<vector>
+#include<algorithm>
+#include<queue>
 #include<string>
+#include<set>
 
 using namespace std;
 
-set<int> S;
 int main(void) {
-	int M;
-	scanf("%d", &M);
+	ios::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
 
+	int M; cin >> M;
+
+	int res = 0;
 	for (int i = 0; i < M; i++) {
-		string menu;
-		cin >> menu;
-
-		int num;
-		scanf("%d", &num);
+		string menu; cin >> menu;
 
 		if (menu == "add") {
-			S.insert(num);
+			int num; cin >> num;
+			res |= (1 << num);
 		}
 		else if (menu == "remove") {
-			S.erase(num);
+			int num; cin >> num;
+			if (res &(1 << num))
+				res &= ~(1 << num);
 		}
 		else if (menu == "check") {
-			if (S.find(num) != S.end()) {
-				printf("1\n");
+			int num; cin >> num;
+			if (res & (1 << num)) {
+				cout << "1\n";
 			}
 			else {
-				printf("0\n");
+				cout << "0\n";
 			}
 		}
 		else if (menu == "toggle") {
-			if (S.find(num) != S.end()) {
-				S.erase(num);
-			}
-			else {
-				S.insert(num);
-			}
+			int num; cin >> num;
+			if (res &(1 << num))
+				res &= ~(1 << num);
+			else
+				res |= (1 << num);
 		}
 		else if (menu == "all") {
-			for (int i = 1; i <= 20; i++) {
-				S.insert(i);
-			}
+			res = 0;
+			for (int i = 1; i <= 20; i++)
+				res |= (1 << i);
 		}
 		else if (menu == "empty") {
-			S.clear();
+			res = 0;
 		}
 	}
+
 }

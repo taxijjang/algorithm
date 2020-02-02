@@ -12,64 +12,40 @@
 using namespace std;
 
 typedef long long int ll;
-typedef struct Data {
-	int x, y, cnt, wall;
-}Data;
+
 const int INF = 2000000000;
 
-
-char board[SIZE][SIZE];
-bool visited[SIZE][SIZE][2];
-
-int dx[4] = { -1,0,1,0 };
-int dy[4] = { 0,1,0,-1 };
-
+map<char, int> _map;
+priority_queue<int> pq;
 int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int N, M; cin >> N >> M;
+	int N; cin >> N;
 
 	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < M; j++) {
-			cin >> board[i][j];
+		string s; cin >> s;
+		int zari = 1;
+		
+		for (auto it = s.rbegin(); it != s.rend(); it++) {
+			if (_map.find(*it) == _map.end())
+				_map[*it] = zari;
+			else
+				_map[*it] += zari;
+			zari *= 10;
 		}
 	}
 
-	Data s;
-	s.x = 0; s.y = 0, s.cnt = 1, s.wall = 0;
-
-	queue<Data> q;
-
-	q.push(s);
-
-	while (!q.empty()) {
-		Data h = q.front();
-		q.pop();
-
-		visited[s.x][s.y][s.wall] = true;
-
-		if (h.x == N - 1 && h.y == M - 1) {
-			cout << h.cnt;
-			return 0;
-		}
-		for (int i = 0; i < 4; i++) {
-			Data n;
-			n.x = h.x + dx[i], n.y = h.y + dy[i], n.cnt = h.cnt + 1; 
-			n.wall = h.wall + board[n.x][n.y] - '0';
-
-			if (n.x < 0 || n.x >= N || n.y < 0 || n.y >= M)
-				continue;
-			if (visited[n.x][n.y][n.wall] == true)
-				continue;
-			if (n.wall > 1)
-				continue;
-
-			visited[n.x][n.y][n.wall] = true;
-			q.push(n);
-		}
+	for (auto it = _map.begin(); it != _map.end(); it++) {
+		pq.push(it->second);
 	}
 
-	cout << -1;
-	return 0;
+	int num = 9, sum = 0;
+	while (!pq.empty()) {
+		sum += pq.top() * num--;
+		pq.pop();
+	}
+
+	cout << sum;
+	
 }

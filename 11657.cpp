@@ -1,64 +1,64 @@
-#include <iostream>
-#include <vector>
-#include <utility>
-#define MAX 510
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<queue>
+#include<string>
+#include<set>
+#include<map>
+#include<cstring>
+#include<functional>
+#include<unordered_set>
+#define SIZE 550
 
 using namespace std;
 
-vector <pair<int, int>> city[MAX];
+typedef long long int ll;
+typedef struct Data {
+	int x, y, w;
+}Data;
 
-int dist[MAX];
-int INF = 999999999;
+const int INF = 2000000000;
+int dis[SIZE];
+int N, M;
+vector<pair<int, int>> arr[SIZE];
+
 int main(void) {
-	int N, M;
-	scanf("%d %d", &N, &M);
+	ios::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
 
-	int a, b, c;
-	for (int m = 1; m <= M; m++) {
-		scanf("%d %d %d", &a, &b, &c);
-		city[a].push_back(pair<int, int>(b, c));
+	fill(dis, dis + SIZE, INF);
+	cin >> N >> M;
+
+	for (int i = 0; i < M; i++) {
+		int a, b, c; cin >> a >> b >> c;
+
+		arr[a].push_back(make_pair(b, c));
 	}
 
-	//dist √ ±‚»≠
-	int start = 1;
-	fill(dist, dist + 502, INF);
-	dist[start] = 0;
 
-	bool judge = false;
+	dis[1] = 0;
 
+	bool cycle = false;
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= N; j++) {
-			if (dist[j] == MAX)
-				continue;
-			for (auto a : city[j]) {
-				int there = a.first;
-				int thereCost = a.second;
-				if (dist[there] > dist[j] + thereCost) {
-					dist[there] = dist[j] + thereCost;
-					if (i == N) {
-						judge = true;
-					}
+			for (auto e : arr[j]) {
+				int b, c;
+				tie(b, c) = e;
+				if (dis[j] != INF && dis[b] > dis[j] + c) {
+					dis[b] = dis[j] + c;
+					if (i == N) cycle = true;
 				}
 			}
 		}
-	}
-	if (judge) {
-		printf("-1");
-		return 0;
+
 	}
 
-	for (int n = 2; n <= N; n++) {
-		if (dist[n] >= INF) {
-			printf("-1\n");
-		}
-		else {
-			if (dist[n] < INF) {
-				printf("%d\n", dist[n]);
-			}
-		}
-	}
-	
-		
+	if (cycle)
+		cout << -1;
+	else
+		for (int i = 2; i <= N; i++) {
 
-	return 0;
+			cout << (dis[i] == INF ? -1 : dis[i]) << "\n";
+		}
+
 }

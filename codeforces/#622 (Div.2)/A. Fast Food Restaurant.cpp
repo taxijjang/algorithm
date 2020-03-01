@@ -21,45 +21,31 @@ int main(void) {
 
 	int T; cin >> T;
 
-	vector<int> arr = { 1,2,3 };
-
-
 	while (T--) {
 		vector<int> food(4, 0);
 		int res = 0;
 		cin >> food[1] >> food[2] >> food[3];
 
-		vector<string> combi = { "1","2","3","12","13","23","123" };
+		sort(food.begin(), food.end());
 
-		do {
-			int cnt = 0;
-			vector<int> tmp; tmp.assign(food.begin(), food.end());
-			for (auto c : combi) {
-				int c_size = c.size();
+		if (food[1] >= 4) {
+			cout << 7 << "\n";
+			continue;
+		}
+		if (food[3] == 0) {
+			cout << 0 << "\n";
+			continue;
+		}
 
-				if (c_size == 1) {
-					if (tmp[c[0] - '0']) {
-						tmp[c[0] - '0']--;
-						cnt++;
-					}
+		if (food[3]>0) food[3]--, res++;
+		if (food[2]>0) food[2]--, res++;
+		if (food[1]>0) food[1]--, res++;
+		if (food[3]>0 && food[2]>0) food[3]--, food[2]--, res++;
+		if (food[3]>0 && food[1]>0) food[3]--, food[1]--, res++;
+		if (food[1]>0 && food[2]>0) food[1]--, food[2]--, res++;
+		if (food[3]>0 && food[2]>0 && food[1]>0) food[3]--, food[2]--, food[1]--, res++;
 
-				}
-				else if (c_size == 2) {
-					if (tmp[c[0] - '0'] && tmp[c[1] - '0'] >0) {
-						tmp[c[0] - '0']--; tmp[c[1] - '0']--;
-						cnt++;
-					}
-				}
-				else if (c_size == 3) {
-					if (tmp[c[0] - '0'] && tmp[c[1] - '0'] && tmp[c[2] - '0']) {
-						tmp[c[0] - '0']--; tmp[c[1] - '0']--; tmp[c[2] - '0']--;
-						cnt++;
-					}
-				}
-			}
-			res = max(res, cnt);
 
-		} while (next_permutation(combi.begin(), combi.end()));
 		cout << res << "\n";
 	}
 }

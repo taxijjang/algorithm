@@ -36,11 +36,11 @@ vector<vector<int>> solution(int n, vector<vector<int>> build_frame) {
 		int x = build[0], y = build[1], a = build[2], b = build[3];
 		if (b == 1) {//설치 할때
 			if (a == 0) {//기둥
-				if (y == 0 || gi[x][y - 1] == true || bo[x-1][y] == true || bo[x][y] == true)
+				if (y == 0 || gi[x][y - 1] == true || bo[x - 1][y] == true || bo[x][y] == true)
 					gi[x][y] = true;
 			}
 			else if (a == 1) {//보
-				if (gi[x][y-1] == true || gi[x + 1][y-1] == true || (bo[x - 1][y] == true && bo[x + 1][y] == true)) {
+				if (gi[x][y - 1] == true || gi[x + 1][y - 1] == true || (bo[x - 1][y] == true && bo[x + 1][y] == true)) {
 					bo[x][y] = true;
 				}
 			}
@@ -48,25 +48,73 @@ vector<vector<int>> solution(int n, vector<vector<int>> build_frame) {
 
 		else if (b == 0) {//삭제 할때
 			if (a == 0) {//기둥
-				if (gi[x][y + 1] == true )
-					continue;
-				if ((bo[x][y + 1] == true && bo[x + 1][y + 1] == false || bo[x-1][y+1] == true && bo[x][y+1] == false))
+				if (gi[x][y + 1] == true)
 					continue;
 
-				gi[x][y] == true;
+				int check = 0;
+				for (int i = x - 1; i >= -1; i--) {
+					if (bo[i][y + 1] != true) {
+						if (i == x - 1)
+							check++;
+						break;
+					}
+
+					if (gi[i][y] == true) {
+						check++;
+						break;
+					}
+
+				}
+				for (int i = x; i <= n; i++) {
+					if (bo[i][y + 1] != true) {
+						if (i == x)
+							check++;
+						break;
+					}
+
+					if (gi[i][y] == true) {
+						check++;
+						break;
+					}
+
+				}
+
+				if (check < 2)
+					continue;
+				gi[x][y] = false;
 
 			}
 
 			else if (a == 1) {//보
-				if (gi[x][y] == true)
+				if ((gi[x][y] == true && bo[x - 1][y] != true) || (gi[x + 1][y] == true && bo[x + 1][y] != true))
 					continue;
-				int cnt = 0;
-				for (int i = x - 1; i < x + 2; i++) {
-					if (gi[i][y - 1] == true)
-						cnt++;
+
+				int check = 0;
+				for (int i = x; i > x - 2; i--) {
+					if (bo[i][y] != true) {
+						if (i == x - 1)
+							check++;
+						break;
+					}
+					if (gi[i][y - 1] == true) {
+						check++;
+						break;
+					}
 				}
 
-				if (cnt < 2)
+				for (int i = x + 1; i <= x + 2; i++) {
+					if (bo[i][y] != true) {
+						if (i == x + 1)
+							check++;
+						break;
+					}
+					if (gi[i][y - 1] == true) {
+						check++;
+						break;
+					}
+				}
+
+				if (check < 2)
 					continue;
 
 				bo[x][y] = false;
@@ -96,10 +144,6 @@ vector<vector<int>> solution(int n, vector<vector<int>> build_frame) {
 	}
 
 	sort(answer.begin(), answer.end(), cmp);
-	
-	for (auto a : answer) {
-		cout << a[0] << " " << a[1] << " " << a[2] << "\n";
-	}
 
 	return answer;
 }
@@ -108,14 +152,23 @@ int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin >> n;
-	//vector<vector<int>> build_frame = { {1, 0, 0, 1}, {1, 1, 1, 1}, {2, 1, 0, 1}, {2, 2, 1, 1}, {5, 0, 0, 1}, {5, 1, 0, 1}, {4, 2, 1, 1}, {3, 2, 1, 1} };
-	
-	vector<vector<int>> build_frame;
+
+	vector<vector<int>> bb = { {1, 0, 0, 1}, {1, 1, 1, 1}, {2, 1, 0, 1}, {2, 2, 1, 1}, {5, 0, 0, 1}, {5, 1, 0, 1}, {4, 2, 1, 1}, {3, 2, 1, 1} };
+	//vector<vector<int>> bb = {{0, 0, 0, 1}, {2, 0, 0, 1}, {4, 0, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 1}, {2, 1, 1, 1}, {3, 1, 1, 1}, {2, 0, 0, 0}, {1, 1, 1, 0}, {2, 2, 0, 1}};
+	//vector<vector<int>> bb = { {1,0,0,1},{2,0,0,1},{0,1,1,1},{1,1,1,1},{1,1,1,0} };
+
+	/*int n; cin >> n;
+	vector<vector<int>> bb;
 	for (int i = 0; i < n; i++) {
 		int x, y, a, b; cin >> x >> y >> a >> b;
 		vector<int> bid = { x,y,a,b };
-		build_frame.push_back(bid);
+		bb.push_back(bid);
+	}*/
+
+	vector<vector<int>> res = solution(5, bb);
+
+	cout << "\n" << res.size() << "\n";
+	for (auto r : res) {
+		cout << r[0] << " " << r[1] << " " << r[2] << "\n";
 	}
-	vector<vector<int>> res = solution(5, build_frame);
 }

@@ -40,9 +40,9 @@ void check(int x, int y) {
 
 		if (n_x == N || n_x == -1)
 			continue;
-		n_x = x + dx[i] == -1 ? N-1 : (x + dx[i]) % N;
-		n_y = y + dy[i] == -1 ? M-1 : (y + dy[i]) % M;
-		
+		n_x = x + dx[i] == -1 ? N - 1 : (x + dx[i]) % N;
+		n_y = y + dy[i] == -1 ? M - 1 : (y + dy[i]) % M;
+
 		if (dq[x][y] == dq[n_x][n_y] && dq[x][y] != BLANK) {
 			visited.insert(make_pair(n_x, n_y));
 			visited.insert(make_pair(x, y));
@@ -65,7 +65,7 @@ int main(void) {
 		int x, d, k; cin >> x >> d >> k;
 
 		//시계 방향
-		for (int i = x -1; i < N; i += x) {
+		for (int i = x - 1; i < N; i += x) {
 			int t_k = k;
 			if (d == 0) {
 				while (t_k--) {
@@ -100,20 +100,12 @@ int main(void) {
 			}
 		}
 		else if (visited.empty()) {
-			int avg = sum / cnt;
-			int avg_na = sum%cnt;
-
-			int row_avg = avg, high_avg = avg;
-			if (avg_na != 0) {
-				row_avg++;
-				high_avg--;
-			}
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < M; j++) {
 					if (dq[i][j] != BLANK) {
-						if (dq[i][j] < row_avg)
+						if (dq[i][j] * cnt < sum)
 							dq[i][j]++;
-						else if (dq[i][j] > high_avg)
+						else if (dq[i][j] * cnt > sum)
 							dq[i][j]--;
 					}
 				}

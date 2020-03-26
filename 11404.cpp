@@ -1,19 +1,19 @@
-#include <iostream>
+#include<iostream>
+#include<vector>
+#include<functional>
+#include<algorithm>
+#include<cstring>
+#include<string>
 
+#define SIZE 110
 using namespace std;
 
-int INF = 100001;
-int city[102][102];
-int min(int x, int y) {
-	if (x > y) return y;
-	return x;
-}
-int main(void) {
-	int N, M;
-	scanf("%d %d", &N, &M);
+int INF = 2e7;
+int city[SIZE][SIZE];
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
+void init() {
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++) {
 			if (i == j) {
 				city[i][j] = 0;
 				continue;
@@ -21,30 +21,35 @@ int main(void) {
 			city[i][j] = INF;
 		}
 	}
+}
+int main(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
 
-	int x, y, cost;
-	for (int m = 1; m <= M; m++) {
-		scanf("%d %d %d", &x, &y, &cost);
-		if (city[x][y] >= cost) city[x][y] = cost;
+	int N, M; cin >> N >> M;
+
+	init();
+
+	for (int i = 0; i < M; i++) {
+		int a, b, c; cin >> a >> b >> c;
+		city[a][b] = min(city[a][b], c);
 	}
 
 	for (int k = 1; k <= N; k++) {
+
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= N; j++) {
-				if (city[i][j])
-					city[i][j] = min(city[i][j], city[i][k] + city[k][j]);
+				if (i == j)continue;
+				city[i][j] = min(city[i][j], city[i][k] + city[k][j]);
 			}
 		}
 	}
 
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= N; j++) {
-			if (city[i][j] > 100000) printf("%d ", 0);
-			else { printf("%d ", city[i][j]); }
+			cout << (city[i][j] == INF ? 0 : city[i][j]) << " ";
 		}
-		printf("\n");
+		cout << "\n";
 	}
 
-
-	return 0;
 }

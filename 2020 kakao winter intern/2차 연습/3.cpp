@@ -57,17 +57,17 @@ int solution(vector<string> user_id, vector<string> banned_id) {
 }
 
 int main(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
+   ios::sync_with_stdio(false);
+   cin.tie(NULL); cout.tie(NULL);
 
-	//vector<string> user_id = {"frodo", "fradi", "crodo", "abc123", "frodoc"};
-	//vector<string> banned_id = { "fr*d*", "abc1**" };
+   //vector<string> user_id = {"frodo", "fradi", "crodo", "abc123", "frodoc"};
+   //vector<string> banned_id = { "fr*d*", "abc1**" };
 
-	//vector<string> user_id = {"frodo", "fradi", "crodo", "abc123", "frodoc"};
-	//vector<string> banned_id = {"*rodo", "*rodo", "******"};
+   //vector<string> user_id = {"frodo", "fradi", "crodo", "abc123", "frodoc"};
+   //vector<string> banned_id = {"*rodo", "*rodo", "******"};
 
-	vector<string> user_id = { "frodo", "fradi", "crodo" };
-	vector<string> banned_id = { "*****" };
-	cout << solution(user_id, banned_id);
+   vector<string> user_id = { "frodo", "fradi", "crodo" };
+   vector<string> banned_id = { "*****" };
+   cout << solution(user_id, banned_id);
 
 }

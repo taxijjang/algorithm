@@ -56,6 +56,6 @@ int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	vector<int > A = { 51,71,17,42 };
+	vector<int > A = { 99,990,9900,9009 };
 	cout << solution(A);
 }

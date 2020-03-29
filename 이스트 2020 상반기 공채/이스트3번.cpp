@@ -22,17 +22,27 @@ int solution(vector<int> &A) {
    int A_size = A.size();
    int res = 0;
    int error_cnt = 0;
+
+   //지우고자 하는 나무를 탐색
    for (int Tree = 0; Tree <=A_size; Tree++) {
+	  //아예 지우지 않고 탐색을 먼저 해야되기 때문에
+	  //-1로도 시작하여 나무를 제거하지 않고 탐색 하도록함
       int tree = Tree - 1;
       bool error = false;
+
+	  //나무를 제거하고 조건에 맞는지 탐색
       for (int i = 0; i < A_size; i++) {
          if (i == tree) continue;
 
          int left = i - 1, right = i + 1;
 
+		 //탐색을 하고 있는 나무를 기준으로 왼쪽과 오른쪽이
+		 //제거된 나무라면 한번더 이동 하도록 함
          if (left == tree) left--;
          if (right == tree) right++;
 
+		 //왼쪽과 오른쪽이 나무가 있는 범위를 벗어나면 항상 조건에 만족
+		 //그리고 나머지 조건
          if (left<0 || right >=A_size||(A[left] > A[i] && A[right] > A[i]) ||
             (A[left] < A[i] && A[right] < A[i]) ) {}
          else {
@@ -42,7 +52,9 @@ int solution(vector<int> &A) {
          }
       }
 
+	  //탐색한 나무가 모두 조건에 맞다면 경우의수 증가
       if (error == false) {
+		 //나무를 제거 하지 않았는데 조건에 맞다면 바로 0 return
          if (tree == -1)
             return 0;
          res++;

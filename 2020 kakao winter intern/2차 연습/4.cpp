@@ -27,15 +27,7 @@ ll _find(ll a) {
 
    return parrent[a];
 }
-void _union(ll a, ll b) {
-   ll aRoot = _find(parrent[a]);
-   ll bRoot = _find(parrent[b]);
 
-   if (aRoot == bRoot)
-      return;
-
-   parrent[b] = aRoot;
-}
 vector<long long> solution(long long k, vector<long long> room_number) {
    vector<long long> answer;
 
@@ -43,17 +35,7 @@ vector<long long> solution(long long k, vector<long long> room_number) {
       ll next = _find(room);
       answer.push_back(next);
       parrent[next] = _find(next + 1);
-      /*if (parrent[room] == 0) {
-         answer.push_back(room);
-         ll next = _find(room+1);
-         parrent[room] = next;
-      }
-      else if (parrent[room] != 0) {
-         ll next = _find(room);
-         answer.push_back(next);
-         ll nnext = _find(next + 1);
-         parrent[next] = nnext;
-      }*/
+  
    }
    return answer;
 }

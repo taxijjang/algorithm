@@ -1,39 +1,51 @@
 #include<iostream>
-#include <vector>
+#include<vector>
 #include<algorithm>
+#include<queue>
+#include<string>
+#include<set>
+#include<map>
+#include<cstring>
+#include<functional>
+#include<cmath>
+#include<stack>
+
+#define SIZE 1010
+const int INF = 2000000000;
 
 using namespace std;
 
-vector<int> p;
-int arr[50001] = { 0 };
+typedef long long int ll;
+typedef pair<int, int> pii;
 int solution(vector<int> people, int limit) {
+	sort(people.begin(), people.end());
+
+	int left = 0, right = people.size() - 1;
+
 	int answer = 0;
-
-	sort(people.begin(),people.end());
-
-	int start=0, end=people.size()-1;
-
-	while (start < end) {
-		if (people[start] + people[end] <= limit) {
+	while (left <= right) {
+		if (left == right) {
 			answer++;
-			start++, end--;
+			break;
 		}
-		else if (people[start] + people[end] > limit) {
+		if (people[left] + people[right] <= limit) {
 			answer++;
-			end--;
+			left++; right--;
+		}
+		else {
+			answer++;
+			right--;
 		}
 	}
-
 	return answer;
 }
-
 int main(void) {
-	p.push_back(70);
-	p.push_back(50);
-	p.push_back(80);
-	p.push_back(60);
+	ios::sync_with_stdio(false);
+	cin.tie(NULL); cout.tie(NULL);
 
-	printf("%d", solution(p, 100));
 
-	
+	vector<int> people = { 70,50,80,50 };
+	int limit = 100;
+	cout << solution(people, limit);
+
 }

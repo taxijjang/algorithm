@@ -1,0 +1,4 @@
+SELECT DISTINCT user_id 
+FROM CARTS, CART_PRODUCTS
+WHERE CARTS.id = CART_PRODUCTS.cart_id 
+AND name ='밀가루' order by user_id; 

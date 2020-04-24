@@ -28,7 +28,7 @@ bool check(int index, vector<int> & arr, int arr_size) {
 
 		right_odd = odd_sum - left_odd;
 
-		
+
 	}
 	else if (index % 2 == ODD) {
 		if (index != 1) {
@@ -39,7 +39,7 @@ bool check(int index, vector<int> & arr, int arr_size) {
 		right_even = even_sum - left_even;
 
 		right_odd = odd_sum - dp[index][ODD];
-		
+
 	}
 
 	if (left_even + right_odd == left_odd + right_even)
@@ -47,17 +47,21 @@ bool check(int index, vector<int> & arr, int arr_size) {
 	return false;
 }
 int countBalancingElements(vector<int> arr) {
-	
+
 	int arr_size = arr.size();
 
 	for (int i = 0; i < arr_size; i++) {
 		if (i == 0) {
-			dp[i][EVEN] = arr[i];continue;
+			dp[i][EVEN] = arr[i];
+			even_sum = arr[i];
+			continue;
 		}
 		else if (i == 1) {
-			dp[i][ODD] = arr[i]; continue;
+			dp[i][ODD] = arr[i];
+			odd_sum = arr[i];
+			continue;
 		}
-		
+
 		if (i % 2 == EVEN) { // EVEN
 			dp[i][EVEN] = dp[i - 2][EVEN] + arr[i];
 			even_sum = dp[i][EVEN];
@@ -80,6 +84,7 @@ int countBalancingElements(vector<int> arr) {
 int main() {
 	//vector<int> arr = { 5,5,2,5,8,1,7,2,3,7,6,3 };
 	//vector<int> arr = { 5,5,2,5,8 };
-	vector<int> arr = { 8,5,2,5,5 };
+	//vector<int> arr = { 8,5,2,5,5 };
+	vector<int> arr = { 2,2 };
 	cout << countBalancingElements(arr);
 }

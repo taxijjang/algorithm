@@ -1,0 +1,60 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<queue>
+#include<string>
+#include<set>
+#include<map>
+#include<cstring>
+#include<functional>
+#include<cmath>
+#include<stack>
+#include<sstream>
+
+#define SIZE 1010
+const int INF = 20000000;
+
+using namespace std;
+
+typedef long long int ll;
+typedef pair<int, int> pii;
+
+vector<string> bank;
+
+int main(void) {
+
+	string buf;
+	string input;
+
+	getline(cin, buf);
+	std::istringstream ssin(buf);
+	while (ssin >> input) {
+		bank.push_back(input);
+	}
+
+	int bank_size = bank.size();
+
+	int left = 0, right = 0;
+	
+	while (right < bank_size) {
+		set<string> check_bank;
+
+		for (int i = right; i >= left; i--) {
+			if (check_bank.find(bank[i]) == check_bank.end()) {
+				check_bank.insert(bank[i]);
+
+				if (check_bank.size() > 5) {
+					left = i;
+					break;
+				}
+
+				cout << bank[i] << " ";
+			}
+
+		}
+		right++;
+		cout << "\n";
+	}
+
+	return 0;
+}

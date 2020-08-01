@@ -1,0 +1,57 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<queue>
+#include<string>
+#include<set>
+#include<map>
+#include<cstring>
+#include<functional>
+#include<cmath>
+#include<stack>
+#include<sstream>
+
+#define SIZE 1010
+const int INF = 20000000;
+
+using namespace std;
+
+typedef long long int ll;
+typedef pair<int, int> pii;
+
+vector<int> kim, lee;
+int main(void) {
+
+	string buf;
+	int input;
+
+	getline(cin, buf);
+	std::istringstream ssin(buf);
+	while (ssin >> input) {
+		kim.push_back(input);
+	}
+
+	getline(cin, buf);
+	std::istringstream sssin(buf);
+	while (sssin >> input) {
+		lee.push_back(input);
+	}
+
+	int tmp = 0;
+
+	int day_cnt = kim.size();
+
+	for (int i = 0; i < day_cnt; i++) {
+		if (kim[i] - tmp >= lee[i]) {
+			cout << kim[i] - lee[i] - tmp;
+			tmp = 0;
+		}
+
+		else if (kim[i] - tmp < lee[i]){
+			tmp = lee[i] - (kim[i] - tmp);
+			cout << 0;
+		}
+		cout << " ";
+	}
+
+}

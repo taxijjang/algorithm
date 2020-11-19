@@ -18,7 +18,7 @@ visited = [[False] * dp_size for _ in range(25)]
 direct = [0, 1, 2, 3]
 
 
-def solution(board):
+def solution(board) -> int:
     dp[0][0] = 0
     for dir, dd in enumerate(d):
         print(dir, dd[0], dd[1])
@@ -28,7 +28,7 @@ def solution(board):
     return dp[len(board) - 1][len(board) - 1]
 
 
-def dfs(h_x, h_y, h_dir, board):
+def dfs(h_x, h_y, h_dir, board) -> None:
     for dir, dd in enumerate(d):
         n_x, n_y = h_x + dd[0], h_y + dd[1]
         n_dir = direct[dir]
@@ -43,7 +43,7 @@ def dfs(h_x, h_y, h_dir, board):
         dfs(n_x, n_y, n_dir, board)
 
 
-def cost_calc(h_dir, n_dir):
+def cost_calc(h_dir, n_dir) -> int:
     # 직선일때 cost
     if h_dir == n_dir:
         return 100
@@ -57,7 +57,5 @@ if __name__ == "__main__":
     n = int(input())
     board = [list(map(int, sys.stdin.readline().rstrip().split())) for _ in range(n)]
 
-    print(board)
     solution(board=board)
-    print(dp)
     print(dp[len(board) - 1][len(board) - 1])

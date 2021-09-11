@@ -1,3 +1,6 @@
+# Authored by: taxijjang
+# Co-authored by : -
+# Link : https://www.acmicpc.net/source/33221635
 import sys
 
 

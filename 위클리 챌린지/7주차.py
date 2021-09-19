@@ -18,17 +18,17 @@ def solution(enters, leaves):
             if index >= len(leaves):
                 index -= 1
 
-    user_contact = sorted(user_contact, key=lambda x: user_contact.keys())
-    print(user_contact)
     answer = []
+    for index in range(1, len(enters) +1):
+        answer.append(len(user_contact[index]))
     return answer
 
 
 if __name__ == '__main__':
     # enters, leaves = [1, 3, 2], [1, 2, 3]
-    enters, leaves = [1, 4, 2, 3], [2, 1, 3, 4]
+    # enters, leaves = [1, 4, 2, 3], [2, 1, 3, 4]
     # enters, leaves = [3, 2, 1], [2, 1, 3]
     # enters, leaves= [3, 2, 1], [1, 3, 2]
-    # enters, leaves = [1, 4, 2, 3], [2, 1, 4, 3]
+    enters, leaves = [1, 4, 2, 3], [2, 1, 4, 3]
 
     print(solution(enters, leaves))

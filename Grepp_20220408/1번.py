@@ -15,14 +15,10 @@ def init_calendar(weeks_index):
 
 
 def solution(day, k):
+    """
+    간단하게 1년을 모두 채워 놓고 접근 했습니다.
+    """
     calendar = init_calendar(weeks_index=day)
 
     answer = [calendar[month][k] for month in range(12)]
     return answer
-
-
-if __name__ == '__main__':
-    day = 6
-    k = 25
-
-    print(solution(day, k))

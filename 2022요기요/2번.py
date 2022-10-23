@@ -15,5 +15,5 @@ def anonymize_text(sentences: str):
 
 if __name__ == "__main__":
     sentences1 = "John is old"
-    sentences2 = "Mark ate an apple Oh John"
+    sentences2 = "John eats an...did something"
     print(anonymize_text(sentences2))

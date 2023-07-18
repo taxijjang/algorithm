@@ -9,9 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      actions: write
-      id-token: write
+      contents: read
+      actions: read
     steps:
       - uses: actions/checkout@v2
       - name: push tag
@@ -39,3 +38,4 @@ jobs:
           fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}
+        if: always()

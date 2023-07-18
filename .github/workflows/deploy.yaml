@@ -37,6 +37,8 @@ on:
   push:
     branches:
       - master # master branch로 push될 때 아래 action이 실행된다.
+env: 
+  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -59,3 +61,11 @@ jobs:
         with:
           tag_name: "v${{ steps.extract_version_name.outputs.version }}"
           release_name: "v${{ steps.extract_version_name.outputs.version }}"
+      - name: action-slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: ${{ steps.extract_version_name.outputs.version }} tag 생성
+          fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
+        env:
+          SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}

@@ -4,7 +4,7 @@ on:
     branches:
       - master # master branch로 push될 때 아래 action이 실행된다.
 env: 
-  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 jobs:
   build:
     runs-on: ubuntu-latest

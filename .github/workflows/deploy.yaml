@@ -8,7 +8,7 @@ on:
 env:
   SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 
-jbos:
+jobs:
   build:
     runs-on: ubuntu-latest
 
@@ -25,7 +25,7 @@ jbos:
         with: 
           tag_name: ${{ steps.extract_version_name.outputs.version }} 
           release_name: ${{ steps.extract_version_name.outputs.version }} 
-          
+
       # - name: action-slack
         # uses: 8398a7/action-slack@v3
         # with:

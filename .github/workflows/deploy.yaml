@@ -20,9 +20,9 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with: 
+        echo: ${{ steps.extract_version_name.outputs.version }} 
         tag_name: ${{ steps.extract_version_name.outputs.version }} 
         release_name: ${{ steps.extract_version_name.outputs.version }}
-
     - name: action-slack
       uses: 8398a7/action-slack@v3
       with:

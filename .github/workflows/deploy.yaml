@@ -19,7 +19,7 @@ jobs:
         id: extract_version_name    
 
       - name: Release 생성 
-        uses: actions/create-release@v1
+        uses: actions/create-release@latest
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with: 

@@ -24,10 +24,10 @@ jobs:
         release_name: ${{ steps.extract_version_name.outputs.version }}
 
     - name: action-slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          author_name: ${{ steps.extract_version_name.outputs.version }} tag 생성
-          fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
-        env:
-          SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: ${{ steps.extract_version_name.outputs.version }} tag 생성
+        fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
+      env:
+        SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}

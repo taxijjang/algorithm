@@ -47,3 +47,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # 스쿼시머지 테스트
+# 스쿼시머지 테스트
+

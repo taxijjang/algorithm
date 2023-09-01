@@ -10,6 +10,7 @@ jobs:
       contents: write
       actions: write
       id-token: write
+    if: contains(github.event.head_commit.message, 'Merge pull request') # merge commit 만 release 생성
     steps:
       - uses: actions/checkout@v2
       - name: push tag

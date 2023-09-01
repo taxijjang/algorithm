@@ -11,6 +11,7 @@ jobs:
       contents: write
       actions: write
       id-token: write
+      pull-requests: write
 
     # merge commit 만 release 생성
     if: contains(github.event.head_commit.message, 'Merge pull request')
@@ -36,3 +37,13 @@ jobs:
         with:
           tag_name: "v${{ steps.extract_version_name.outputs.version }}"
           release_name: "v${{ steps.extract_version_name.outputs.version }}"
+
+      - name: release draft 작성
+        uses: release-drafter/release-drafter@v5
+        template: |
+          ## What's Changed
+          $CHANGES
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# 스쿼시머지 테스트

@@ -2,7 +2,7 @@ name: create release version tag
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest

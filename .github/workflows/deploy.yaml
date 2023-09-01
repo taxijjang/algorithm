@@ -40,9 +40,6 @@ jobs:
 
       - name: release draft 작성
         uses: release-drafter/release-drafter@v5
-#        template: |
-#          ## What's Changed
-#          $CHANGES
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -1,6 +1,7 @@
 name: create release version tag
 on:
   push:
+    # master branch에 push가 될때
     branches:
       - master
 jobs:
